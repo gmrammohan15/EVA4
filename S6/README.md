@@ -33,9 +33,9 @@ S6
 
 
 
-## With L1 L2 Reg Loss,  loss change graph
+## With L1 and L2 Reg Loss,  loss change graph
 ![With L1 L2 Reg Loss loss change](WithL1L2RegLoss_lossChangeGraph.png)
 
-## With L1 L2 Reg Loss MisclassifiedImages
+## With L1 and L2 Reg Loss MisclassifiedImages
 
 ![With L1 L2 Reg Loss MisclassifiedImages](WithL1L2RegLoss_misclassified.png)
