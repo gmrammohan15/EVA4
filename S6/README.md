@@ -4,9 +4,9 @@ S6
 
 # Reference for Loss change and misclassified images
 
-## WithOut L1 Reg Loss loss change
+## WithOut L1 and L2 Reg Loss loss change
 
-![WithOut L1 Reg Loss loss change](WithoutL1L2RegLoss_lossChangeGraph.png)
+![WithOut L1 L2 Reg Loss loss change](WithoutL1L2RegLoss_lossChangeGraph.png)
 
 
 
