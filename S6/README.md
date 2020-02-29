@@ -2,7 +2,7 @@
 
 S6
 
-# Reference for Loss change and misclassified images
+# Images for Loss change and misclassified images graphs
 
 ## WithOut L1 and L2 Reg Loss loss change
 
@@ -11,7 +11,7 @@ S6
 
 
 
-## With L1 Reg Loss loss change
+## With L1 Reg Loss,  loss change graph
 
 ![With L1 Reg Loss loss change](WithL1RegLoss_lossChange.png)
 
@@ -22,7 +22,7 @@ S6
 
 
 
-## With L2 Reg Loss loss change
+## With L2 Reg Loss, loss change graph
 
 ![With L2 Reg Loss loss change](L2RegLoss_lossChangeGraph.png)
 
@@ -33,7 +33,7 @@ S6
 
 
 
-## With L1 L2 Reg Loss loss change
+## With L1 L2 Reg Loss,  loss change graph
 ![With L1 L2 Reg Loss loss change](WithL1L2RegLoss_lossChangeGraph.png)
 
 ## With L1 L2 Reg Loss MisclassifiedImages
