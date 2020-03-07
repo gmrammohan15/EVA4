@@ -1,5 +1,5 @@
 import torch
-import Network
+import network
 
 def find_actual_pred_map(model, num=25):
   images=[]
@@ -9,9 +9,9 @@ def find_actual_pred_map(model, num=25):
   use_cuda = torch.cuda.is_available()
   device = torch.device("cuda" if use_cuda else "cpu")
   with torch.no_grad():
-    for data, target in test_loader:
+    for data, target in mnist_model.m_test_loader:
       data, target = data.to(device), target.to(device)
-      output = model(data)
+      output = mnist_model.m_model(data)
       pred = output.argmax(dim=1, keepdim=True).view_as(target)
       for d , t , p in zip(data, target, pred):
         if t!=p:
