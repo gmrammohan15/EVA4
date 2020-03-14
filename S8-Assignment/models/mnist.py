@@ -94,13 +94,10 @@ class Net(nn.Module):
 
         x = x.view(-1, 10)
         return F.log_softmax(x, dim=-1)
-        
+
     def summary(self, input_size):
       summary(self, input_size=input_size)
 
-    def evaluate(self, optimizer, train_loader, test_loader, epochs, statspath, scheduler=None, batch_scheduler=False, l1_lambda=0):
-      self.trainer = ModelTrainer(self, optimizer, train_loader, test_loader, statspath, scheduler, batch_scheduler, l1_lambda)
+    def evaluate(self, optimizer, train_loader, test_loader, epochs, scheduler=None, batch_scheduler=False, l1_lambda=0):
+      self.trainer = ModelTrainer(self, optimizer, train_loader, test_loader, scheduler, batch_scheduler, l1_lambda)
       self.trainer.run(epochs)
-
-    def stats(self):
-      return self.trainer.stats if self.trainer else None

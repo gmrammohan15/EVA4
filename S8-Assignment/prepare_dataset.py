@@ -4,7 +4,7 @@ class DataLoader:
   """
   Helper class to load test and train data
   """
-  def __init__(self, shuffle=True, batch_size=32, seed=1):
+  def __init__(self, shuffle=True, batch_size=128, seed=1):
     cuda = torch.cuda.is_available()
     
     if cuda:

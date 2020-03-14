@@ -1,93 +1,97 @@
-from tqdm import tqdm_notebook, tnrange
-from eva4modelstats import ModelStats
-import torch.nn.functional as F
 import torch
 
+from torch.autograd import Variable
+
+
 class Train:
-  def __init__(self, model, dataloader, optimizer, stats, scheduler=None, l1_lambda = 0):
+  def __init__(self, model, dataloader, optimizer, criterion, schedular=None, l1_lambda=0):
     self.model = model
     self.dataloader = dataloader
     self.optimizer = optimizer
-    self.scheduler = scheduler
-    self.stats = stats
+    self.schedular = schedular
     self.l1_lambda = l1_lambda
+    self.criterion = criterion
+
 
   def run(self):
     self.model.train()
-    pbar = tqdm_notebook(self.dataloader)
-    for data, target in pbar:
-      # get samples
-      data, target = data.to(self.model.device), target.to(self.model.device)
+    train_acc = 0.0
+    train_loss = 0.0
 
-      # Init
-      self.optimizer.zero_grad()
-      # In PyTorch, we need to set the gradients to zero before starting to do backpropragation because PyTorch accumulates the gradients on subsequent backward passes. 
-      # Because of this, when you start your training loop, ideally you should zero out the gradients so that you do the parameter update correctly.
+    for i, (images, labels) in enumerate(self.dataloader):
+        cuda_avail = torch.cuda.is_available()
+        if cuda_avail:
+            images = Variable(images.cuda())
+            labels = Variable(labels.cuda())
 
-      # Predict
-      y_pred = self.model(data)
+        # Clear all accumulated gradients
+        self.optimizer.zero_grad()
+        # Predict classes using images from the test set
+        outputs = self.model(images)
+        # Compute the loss based on the predictions and actual labels
+        loss = self.criterion(outputs, labels)
 
-      # Calculate loss
-      loss = F.nll_loss(y_pred, target)
+        if self.l1_lambda > 0:
+            reg_loss = 0.0
+            for param in self.model.parameters():
+                reg_loss += torch.sum(param.abs())
+            loss += self.l1_lambda * reg_loss
+        # Backpropagate the loss
+        loss.backward()
 
-      #Implementing L1 regularization
-      if self.l1_lambda > 0:
-        reg_loss = 0.
-        for param in self.model.parameters():
-          reg_loss += torch.sum(param.abs())
-        loss += self.l1_lambda * reg_loss
+        # Adjust parameters according to the computed gradients
+        self.optimizer.step()
 
+        _, prediction = torch.max(outputs.data, 1)
+        
+        train_acc += torch.sum(prediction == labels.data)
 
-      # Backpropagation
-      loss.backward()
-      self.optimizer.step()
+    train_acc = train_acc / 50000
 
-      # Update pbar-tqdm
-      pred = y_pred.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
-      correct = pred.eq(target.view_as(pred)).sum().item()
-      lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
-      self.stats.add_batch_train_stats(loss.item(), correct, len(data), 0)
-      pbar.set_description(self.stats.get_latest_batch_desc())
-      if self.scheduler:
-        self.scheduler.step()
+    return train_acc
 
 class Test:
-  def __init__(self, model, dataloader, stats):
+  def __init__(self, model, dataloader):
     self.model = model
     self.dataloader = dataloader
-    self.stats = stats
 
   def run(self):
     self.model.eval()
+    test_acc = 0.0
     with torch.no_grad():
-        for data, target in self.dataloader:
-            data, target = data.to(self.model.device), target.to(self.model.device)
-            output = self.model(data)
-            loss = F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
-            correct = pred.eq(target.view_as(pred)).sum().item()
-            self.stats.add_batch_test_stats(loss, correct, len(data))
+      for i, (images, labels) in enumerate(self.dataloader):
+        cuda_avail = torch.cuda.is_available()
+        if cuda_avail:
+          images = Variable(images.cuda())
+          labels = Variable(labels.cuda())
+
+            # Predict classes using images from the test set
+        outputs = self.model(images)
+        _, prediction = torch.max(outputs.data, 1)
+        
+        test_acc += torch.sum(prediction == labels.data)
+
+    #Compute the average acc and loss over all 10000 test images
+    test_acc = test_acc / 10000
+
+    return test_acc
+
 
 class ModelTrainer:
-  def __init__(self, model, optimizer, train_loader, test_loader, statspath, scheduler=None, batch_scheduler=False, l1_lambda = 0):
+  def __init__(self, model, optimizer, train_loader, test_loader, criterion, schedular=None, batch_schedular=False, l1_lambda = 0):
     self.model = model
-    self.scheduler = scheduler
-    self.batch_scheduler = batch_scheduler
+    self.schedular = schedular
+    self.batch_schedular = batch_schedular
     self.optimizer = optimizer
-    self.stats = ModelStats(model, statspath)
-    self.train = Train(model, train_loader, optimizer, self.stats, self.scheduler if self.scheduler and self.batch_scheduler else None, l1_lambda)
-    self.test = Test(model, test_loader, self.stats)
+    self.criterion = criterion
+    self.train = Train(model, train_loader, optimizer, self.criterion, self.schedular if self.schedular and self.batch_schedular else None, l1_lambda)
+    self.test = Test(model, test_loader)
 
   def run(self, epochs=10):
-    pbar = tqdm_notebook(range(1, epochs+1), desc="Epochs")
-    for epoch in pbar:
-      self.train.run()
-      self.test.run()
-      self.stats.next_epoch(self.scheduler.get_last_lr()[0] if self.scheduler else 0)
-      pbar.write(self.stats.get_epoch_desc())
-      if self.scheduler and not self.batch_scheduler:
-        self.scheduler.step()
-      if self.scheduler:
-        pbar.write(f"Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}")
-    # save stats for later lookup
-    self.stats.save()
+    for epoch in range(epochs):
+        train_acc = self.train.run()
+        test_acc = self.test.run()
+        if self.schedular and not self.batch_schedular:
+            self.schedular.step()
+        print("Epoch {}, Train Accuracy: {} , Test Accuracy: {}".format(epoch, train_acc, test_acc))
+
