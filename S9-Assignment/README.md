@@ -1,4 +1,4 @@
-##Assignment 9
+#Assignment 9
 
 ResNet18 model used from https://github.com/kuangliu/pytorch-cifar 
 
@@ -13,7 +13,7 @@ Used GradCam as module to show heatmap
 Target test accuracy 87 %
 
 
-##Assignment details:
+#Assignment details:
 
 Move your last code's transformations to Albumentations. Apply ToTensor, HorizontalFlip, Normalize (at min) + More (for additional points)
 
