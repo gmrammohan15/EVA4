@@ -70,8 +70,6 @@ class ResNet(nn.Module):
       self.trainer = ModelTrainer(self, optimizer, train_loader, test_loader, criterion, schedular, batch_schedular, l1_lambda)
       self.trainer.run(epochs)
 
-    def plot(self):
-        self.trainer.plot_graph()
 
 def ResNet18():
     return ResNet(BasicBlock, [2,2,2,2])
