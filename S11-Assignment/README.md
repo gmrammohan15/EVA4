@@ -1,26 +1,37 @@
-# Assignment 10
+# Assignment 11
 
 
 # Details:
 
-Make sure  to Add CutOut to your code. It should come from your transformations (albumentations)
+Achieved test accuracy of 89 % within 24 epochs
+# Transformations used
+RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
 
-Use this repo: https://github.com/davidtvs/pytorch-lr-finder (Links to an external site.) 
+# Implemented the ResNet architecture for CIFAR 10 as described below:
 
-Move LR Finder code to your modules
-
-Implement LR Finder (for SGD, not for ADAM)
-
-Implement ReduceLROnPlatea: https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau (Links to an external site.)
-
-Find best LR to train your model
-
-Use SDG with Momentum
-
-Train for 50 Epochs. 
-
-Show Training and Test Accuracy curves
-
-Target 88% Accuracy.
-
-Run GradCAM on the any 25 misclassified images. Make sure you mention what is the prediction and what was the ground truth label.
+PrepLayer - Conv 3x3 s1, p1) >> BN >> RELU [64k]
+Layer1 -
+X = Conv 3x3 (s1, p1) >> MaxPool2D >> BN >> RELU [128k]
+R1 = ResBlock( (Conv-BN-ReLU-Conv-BN-ReLU))(X) [128k] 
+Add(X, R1)
+Layer 2 -
+Conv 3x3 [256k]
+MaxPooling2D
+BN
+ReLU
+Layer 3 -
+X = Conv 3x3 (s1, p1) >> MaxPool2D >> BN >> RELU [512k]
+R2 = ResBlock( (Conv-BN-ReLU-Conv-BN-ReLU))(X) [512k]
+Add(X, R2)
+MaxPooling with Kernel Size 4
+FC Layer 
+SoftMax
+Uses One Cycle Policy such that:
+Total Epochs = 24
+Max at Epoch = 5
+LRMIN = FIND
+LRMAX = FIND
+NO Annihilation
+Uses this transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
+Batch size = 512
+Target Accuracy: 90%. 
