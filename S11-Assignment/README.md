@@ -9,8 +9,8 @@ RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
 
 # Implemented the ResNet architecture for CIFAR 10 as described below:
 
-PrepLayer - Conv 3x3 s1, p1) >> BN >> RELU [64k]
-Layer1 -
+PrepLayer - Conv 3x3 s1, p1) >> BN >> RELU [64k] \
+Layer1 - \
 X = Conv 3x3 (s1, p1) >> MaxPool2D >> BN >> RELU [128k]
 R1 = ResBlock( (Conv-BN-ReLU-Conv-BN-ReLU))(X) [128k] 
 Add(X, R1)
