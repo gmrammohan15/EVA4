@@ -9,7 +9,7 @@ class OneCycle():
         self.high_lr = max_lr # the optimum learning rate, found from LR range test
         self.low_mom = momentum_vals[1]
         self.high_mom = momentum_vals[0]
-        self.prcnt = prcnt # percentage of cycle length,we annihilate learning rate below the lower learnig rate (default is 10)
+        self.prcnt = prcnt 
         self.iteration = 0
         self.lrs = []
         self.moms = []
