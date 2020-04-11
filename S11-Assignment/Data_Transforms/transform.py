@@ -1,12 +1,17 @@
 import torch
 import torchvision
 import torchvision.transforms as transforms
-from albumentations import Cutout
+from .cutout import Cutout
 from .train_transforms import TrainAlbumentation
 from .test_transforms import TestAlbumentation
 
 SEED = 1
-
+# transform_train = transforms.Compose([
+#     transforms.RandomCrop(32, padding=4),
+#     transforms.RandomHorizontalFlip(), transforms.ColorJitter(brightness=0.10, contrast=0.1, saturation=0.10, hue=0.1),
+#     transforms.RandomRotation((-10.0, 10.0)), transforms.ToTensor(),
+#     transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+# ])
 class Data():
 
   def __init__(self):
@@ -24,11 +29,11 @@ class Data():
   def getTrainDataSetTorchTransforms(self, train=True):
       transform_train = transforms.Compose([
           transforms.RandomCrop(32, padding=4),
-          transforms.RandomHorizontalFlip(), transforms.ColorJitter(brightness=0.10, contrast=0.1, saturation=0.10, hue=0.1),
-          transforms.RandomRotation((-10.0, 10.0)), transforms.ToTensor(),
+          transforms.RandomHorizontalFlip(),
+          transforms.ToTensor(),
           transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
       ])
-      transform_train.transforms.append(Cutout(num_holes=8))
+      transform_train.transforms.append(Cutout(n_holes=8, length=8))
       dataset = torchvision.datasets.CIFAR10(root='./data', train=train, download=True, transform=transform_train)
       return dataset     
 

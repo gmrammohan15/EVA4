@@ -1,4 +1,4 @@
-  from albumentations import *
+from albumentations import *
 from albumentations.pytorch import ToTensor
 import numpy as np
 
