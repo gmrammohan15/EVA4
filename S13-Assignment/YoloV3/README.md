@@ -2,8 +2,15 @@
 ________
 YoloV3 Simplified for training on Colab with custom dataset. 
 
-_A Collage of Training images_
-![image](https://github.com/theschoolofai/YoloV3/blob/master/output/train.png)
+Some Training images_
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/03012017-dji-phantom-flying-sky-260nw-555436891.jpg)
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/astana-kazakhstan-december-18-2017-260nw-777449344.jpg)
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/august-24-2017-labuan-malaysia-260nw-703077394.jpg)
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/bangkok-thailandmay-16-2016-drone-260nw-421674388.jpg)
+
 
 
 We have added a very 'smal' Coco sample imageset in the folder called smalcoco. This is to make sure you can run it without issues on Colab.
@@ -57,7 +64,7 @@ data
 ```
 walle
 ```
-8. Walle above will have a class index of 0. 
+8. Drone above will have a class index of 0. 
 9. For COCO's 80 classes, VOLOv3's output vector has 255 dimensions ( (4+1+80)*3). Now we have 1 class, so we would need to change it's architecture.
 10. Copy the contents of 'yolov3-spp.cfg' file to a new file called 'yolov3-custom.cfg' file in the data/cfg folder. 
 11. Search for 'filters=255' (you should get entries entries). Change 255 to 18 = (4+1+1)*3
@@ -75,4 +82,12 @@ As you can see in the collage image above, a lot is going on, and if you are cre
 **Results**
 After training for 300 Epochs, results look awesome!
 
-![image](https://github.com/theschoolofai/YoloV3/blob/master/output/download.jpeg)
+Youtube link:
+https://youtu.be/8byoGMzK41w
+
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/output/out092.jpg)
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/output/out125.jpg)
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/output/out619.jpg)
