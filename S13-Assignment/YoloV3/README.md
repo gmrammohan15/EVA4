@@ -3,6 +3,7 @@ ________
 YoloV3 Simplified for training on Colab with custom dataset. 
 
 Some Training images_
+
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/03012017-dji-phantom-flying-sky-260nw-555436891.jpg)
 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/astana-kazakhstan-december-18-2017-260nw-777449344.jpg)
