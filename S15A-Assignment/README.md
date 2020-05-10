@@ -5,14 +5,14 @@ Data set for background subtraction shoulds have traning images of a object and 
 # Details around requirement:
 You must have 100 background, 100x2 (including flip), and you randomly place the foreground on the background 20 times, you have in total 100x200x20 images. 
 
-In total you MUST have:
+In total you MUST have: \
 
-400k fg_bg images
-400k depth images
-400k mask images
-generated from:
-100 backgrounds
-100 foregrounds, plus their flips
+400k fg_bg images\
+400k depth images\
+400k mask images\
+generated from:\
+100 backgrounds\
+100 foregrounds, plus their flips\
 20 random placement on each background.
 Now add a readme file on GitHub for Project 15A:
 Create this dataset and share a link to GDrive (publicly available to anyone) in this readme file. 
