@@ -38,19 +38,19 @@ https://drive.google.com/drive/folders/1WNMZTW67JD1ujh4UcVrxZHG33TkFtrBa?usp=sha
 
 # Dataset statistics
 ### fg transparent background images: 
-Total number of fg images: 100
-size: 1 MB
-Classes: dog, cat, humans
+Total number of fg images: 100\
+size: 1 MB\
+Classes: dog, cat, humans\
 
 ### fg mask images: 
-Total number of fg mask images: 100
-size: 400 kb
-Classes: dog, cat, humans
+Total number of fg mask images: 100\
+size: 400 kb\
+Classes: dog, cat, humans\
 
 ### bg images:
-Total number of bg mask images: 100
-size: 852 kb
-Classes: river, street, beach
+Total number of bg mask images: 100\
+size: 852 kb\
+Classes: river, street, beach\
 
 ### fg bg images:
 total images: 400 K
