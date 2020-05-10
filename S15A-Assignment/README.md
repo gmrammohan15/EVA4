@@ -1,4 +1,4 @@
-# Preparing Custom Data set for Background Subtraction and Depth Perdiction
+# Preparing Custom Data set for Background Subtraction and Depth Estimation
 ________
 Data set for background subtraction shoulds have traning images of a object and a background where as target will have only the object Data set for depth prediction should have traning images of a object and a background where as target will have the depth map for the same.
 
