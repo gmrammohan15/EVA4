@@ -60,9 +60,7 @@ size: 1.8G (zipped)
 total images: 400K
 
 ### depth images of fg_bg
-total images: 10 \
-At this point , the collab notebook is still running for 400K images
-For now,i ran it over first few images and tested.Same i have put it here.Hopefully before submission i should be able to upload 400K images in drive.
+total images: 400  \
 
 # Visualization
 
