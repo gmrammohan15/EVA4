@@ -1,94 +1,125 @@
-# YoloV3
+# Preparing Custom Data set for Background Subtraction and Depth Perdiction
 ________
-YoloV3 Simplified for training on Colab with custom dataset. 
+Data set for background subtraction shoulds have traning images of a object and a background where as target will have only the object Data set for depth prediction should have traning images of a object and a background where as target will have the depth map for the same.
 
-Some Training images_
+# Details around requirement:
+You must have 100 background, 100x2 (including flip), and you randomly place the foreground on the background 20 times, you have in total 100x200x20 images. 
 
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/03012017-dji-phantom-flying-sky-260nw-555436891.jpg)
+In total you MUST have:
 
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/astana-kazakhstan-december-18-2017-260nw-777449344.jpg)
-
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/august-24-2017-labuan-malaysia-260nw-703077394.jpg)
-
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/data/customdata/images/bangkok-thailandmay-16-2016-drone-260nw-421674388.jpg)
-
-
-
-We have added a very 'smal' Coco sample imageset in the folder called smalcoco. This is to make sure you can run it without issues on Colab.
-
-Full credit goes to [this](https://github.com/ultralytics/yolov3), and if you are looking for much more detailed explainiation and features, please refer to the original [source](https://github.com/ultralytics/yolov3). 
-
-You'll need to download the weights from the original source. 
-1. Create a folder called weights in the root (YoloV3) folder
-2. Download from: https://drive.google.com/open?id=1LezFG5g3BCW6iYaV89B2i64cqEUZD7e0
-3. Place 'yolov3-spp-ultralytics.pt' file in the weights folder:
-  * to save time, move the file from the above link to your GDrive
-  * then drag and drop from your GDrive opened in Colab to weights folder
-4. run this command
-`python train.py --data data/smalcoco/smalcoco.data --batch 10 --cache --epochs 25 --nosave`
-
-For custom dataset:
-1. Clone this repo: https://github.com/miki998/YoloV3_Annotation_Tool
-2. Follow the installation steps as mentioned in the repo. 
-3. For the assignment, download 500 images of your unique object. 
-4. Annotate the images using the Annotation tool. 
-```
-data
-  --customdata
-    --images/
-      --img001.jpg
-      --img002.jpg
-      --...
-    --labels/
-      --img001.txt
-      --img002.txt
-      --...
-    custom.data #data file
-    custom.names #your class names
-    custom.txt #list of name of the images you want your network to be trained on. Currently we are using same file for test/train
-```
-5. As you can see above you need to create **custom.data** file. For 1 class example, your file will look like this:
-```
-  classes=1
-  train=data/customdata/custom.txt
-  test=data/customdata/custom.txt 
-  names=data/customdata/custom.names
-```
-6. As you it a poor idea to keep test and train data same, but the point of this repo is to get you up and running with YoloV3 asap. You'll probably do a mistake in writing to custom.txt file. This is how our file looks like (please note the .s and /s):
-```
-./data/customdata/images/img001.jpg
-./data/customdata/images/img002.jpg
-./data/customdata/images/img003.jpg
-...
-```
-7. You need to add custom.names file as you can see above. For our example, we downloaded images of Walle. Our custom.names file look like this:
-```
-walle
-```
-8. Drone above will have a class index of 0. 
-9. For COCO's 80 classes, VOLOv3's output vector has 255 dimensions ( (4+1+80)*3). Now we have 1 class, so we would need to change it's architecture.
-10. Copy the contents of 'yolov3-spp.cfg' file to a new file called 'yolov3-custom.cfg' file in the data/cfg folder. 
-11. Search for 'filters=255' (you should get entries entries). Change 255 to 18 = (4+1+1)*3
-12. Search for 'classes=80' and change all three entries to 'classes=1'
-13. Since you are lazy (probably), you'll be working with very few samples. In such a case it is a good idea to change:
-  * burn_in to 100
-  * max_batches to 5000
-  * steps to 4000,4500
-14. Don't forget to perform the weight file steps mentioned in the sectio above. 
-15. Run this command `python train.py --data data/customdata/custom.data --batch 10 --cache --cfg cfg/yolov3-custom.cfg --epochs 3 --nosave`
-
-As you can see in the collage image above, a lot is going on, and if you are creating a set of say 500 images, you'd get a bonanza of images via default augmentations being performed. 
+400k fg_bg images
+400k depth images
+400k mask images
+generated from:
+100 backgrounds
+100 foregrounds, plus their flips
+20 random placement on each background.
+Now add a readme file on GitHub for Project 15A:
+Create this dataset and share a link to GDrive (publicly available to anyone) in this readme file. 
+Add your dataset statistics:
+Kinds of images (fg, bg, fg_bg, masks, depth)
+Total images of each kind
+The total size of the dataset
+Mean/STD values for your fg_bg, masks and depth images
+Show your dataset the way I have shown above in this readme
+Explain how you created your dataset
+how were fg created with transparency
+how were masks created for fgs
+how did you overlay the fg over bg and created 20 variants
+how did you create your depth images? 
+Add the notebook file to your repo, one which you used to create this dataset
+Add the notebook file to your repo, one which you used to calculate statistics for this dataset
 
 
-**Results**
-After training for 300 Epochs, results look awesome!
 
-Youtube link:
-https://youtu.be/8byoGMzK41w
+# Google Drive Link:
+https://drive.google.com/drive/folders/1WNMZTW67JD1ujh4UcVrxZHG33TkFtrBa?usp=sharing
 
 
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/output/out092.jpg)
+# Dataset statistics
+### fg transparent background images: 
+Total number of fg images: 100
+size: 1 MB
+Classes: dog, cat, humans
 
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/output/out125.jpg)
+### fg mask images: 
+Total number of fg mask images: 100
+size: 400 kb
+Classes: dog, cat, humans
 
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S13-Assignment/YoloV3/output/out619.jpg)
+### bg images:
+Total number of bg mask images: 100
+size: 852 kb
+Classes: river, street, beach
+
+### fg bg images:
+total images: 400 K
+size: 1.8G (zipped)
+
+### fg bg mask images
+total images: 400K
+
+### depth images of fg_bg
+total images: 400K
+
+# Visualization
+
+Sample Scene images
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/bg_images_readme.png)
+
+Sample fg images
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_transparent_readme.png)
+
+Sample fg mask images
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_mask_readme.png)
+
+Sample fg bg images
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_bg_readme.png)
+
+Sample fg bg mask images
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_bg_mask_readme.png)
+
+Sample depth images for fg bg 
+
+![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/dd_model_output_readme.png)
+
+
+# Explanation of how data set is created
+
+### Background images
+Downloaded stanford data set for "scene" images.Total Zip was around 2GB.
+Randomly selected 100 images.These are treated as bg images for our purpose
+Use Python imaging library(PIL) for resizing the images to square images
+
+### Foreground images
+Randomly selected images for people, dogs, cats.We have to remove the back ground from this image. We have used Microsoft Powerpoint to remove the background, or any tools similar to photoshop can be used to do the same.
+Use Python imaging library(PIL) for resizing the images to square images of size 200x200
+
+### Mask for fg images
+Used python cv2 lib to mask the foreground images
+
+
+### overlay the fg over bg and create 20 variants
+We have 100 bg images and 100 fg images
+For each bg image , fg image is pasted randomly for 10 times and flipped 10 times.
+So it would be 100 x 100 x 20(random + flip)  = 400K images
+
+For the 400 K images above, generate mask.We use same method for creating fg masks here.
+
+### Depth images
+Used the below repo and pretrained model to predict the depth of fg bg images
+https://github.com/ialhashim/DenseDepth
+
+
+# Repo links
+Data set creation
+https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/create.ipynb
+
+Depth Model
+https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/DenseDepthModel.ipynb
+
