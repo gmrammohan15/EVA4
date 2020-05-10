@@ -60,7 +60,9 @@ size: 1.8G (zipped)
 total images: 400K
 
 ### depth images of fg_bg
-total images: 400K
+total images: 10 \
+At this point , the collab notebook is still running for 400K images
+For now,i ran it over first few images and tested.Same i have put it here.Hopefully before submission i should be able to upload 400K images in drive.
 
 # Visualization
 
@@ -112,7 +114,7 @@ So it would be 100 x 100 x 20(random + flip)  = 400K images
 For the 400 K images above, generate mask.We use same method for creating fg masks here.
 
 ### Depth images
-Used the below repo and pretrained model to predict the depth of fg bg images
+Used the below repo and pretrained model to predict the depth of fg bg images\
 https://github.com/ialhashim/DenseDepth
 
 
