@@ -109,10 +109,10 @@ We have 100 bg images and 100 fg images
 For each bg image , fg image is pasted randomly for 10 times and flipped 10 times.
 So it would be 100 x 100 x 20(random + flip)  = 400K images
 
-Basically, 
-1.Have a Top FOR loop to run over the bg images
-2.Have one more FOR loop inside the above for loop to run over fg images
-3.Inside the second for loop, iterate for 20 times for flip and random overlay of fg images over the bg image at that point
+Basically, \
+1.Have a Top FOR loop to run over the bg images\
+2.Have one more FOR loop inside the above for loop to run over fg images\
+3.Inside the second for loop, iterate for 20 times for flip and random overlay of fg images over the bg image at that point\
 
 For the 400 K images above, generate mask.We use same method for creating fg masks here.
 
