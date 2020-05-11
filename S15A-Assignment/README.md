@@ -1,6 +1,6 @@
 # Preparing Custom Data set for Background Subtraction and Depth Estimation
 ________
-Data set for background subtraction shoulds have traning images of a object and a background where as target will have only the object Data set for depth prediction should have traning images of a object and a background where as target will have the depth map for the same.
+Data set for background subtraction should have traning images of a object and a background where as target will have only the object Data set for depth prediction should have traning images of a object and a background where as target will have the depth map for the same.
 
 # Details around requirement:
 You must have 100 background, 100x2 (including flip), and you randomly place the foreground on the background 20 times, you have in total 100x200x20 images. 
@@ -60,7 +60,7 @@ size: 1.8G (zipped)
 total images: 400K
 
 ### depth images of fg_bg
-total images: 100 K \
+total images: 200 K \
 
 # Visualization
 
@@ -94,11 +94,11 @@ Sample depth images for fg bg
 ### Background images
 Downloaded stanford data set for "scene" images.Total Zip was around 2GB.
 Randomly selected 100 images.These are treated as bg images for our purpose
-Use Python imaging library(PIL) for resizing the images to square images
+Use Python imaging library(PIL) for resizing the images to square images of size 200x200
 
 ### Foreground images
 Randomly selected images for people, dogs, cats.We have to remove the back ground from this image. We have used Microsoft Powerpoint to remove the background, or any tools similar to photoshop can be used to do the same.
-Use Python imaging library(PIL) for resizing the images to square images of size 200x200
+Use Python imaging library(PIL) for resizing the images to square images 
 
 ### Mask for fg images
 Used python cv2 lib to mask the foreground images
@@ -121,7 +121,7 @@ Used the below repo and pretrained model to predict the depth of fg bg images\
 https://github.com/ialhashim/DenseDepth
 Since the number of images is very huge, we need increase the RAM allocation in collab to 25 gb which comes free.\
 Run the prediction over batch of images , instead runnning all at once\
-Keep saving the prediction output into ZIP output.Python has good api's to work with ZIP files
+Keep saving the prediction output into ZIP output which gets saved in google drive from your collab.Python has good api's to work with ZIP files
 
 # Repo links
 Data set creation\
