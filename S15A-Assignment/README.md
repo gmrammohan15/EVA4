@@ -1,8 +1,6 @@
 # Preparing Custom Data set for Background Subtraction and Depth Estimation
-________
-Data set for background subtraction should have traning images of a object and a background where as target will have only the object Data set for depth prediction should have traning images of a object and a background where as target will have the depth map for the same.
 
-# Details around requirement:
+## Details around requirement:
 You must have 100 background, 100x2 (including flip), and you randomly place the foreground on the background 20 times, you have in total 100x200x20 images. 
 
 In total you MUST have: 
@@ -62,7 +60,7 @@ total images: 400K
 ### depth images of fg_bg
 total images: 200 K \
 
-# Visualization
+## Visualization
 
 Sample Scene images
 
@@ -89,7 +87,7 @@ Sample depth images for fg bg
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/dd_model_output_readme.png)
 
 
-# Explanation of how data set is created
+## Explanation of how data set is created
 
 ### Background images
 Downloaded stanford data set for "scene" images.Total Zip was around 2GB.
