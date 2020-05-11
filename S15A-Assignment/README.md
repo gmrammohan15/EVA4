@@ -119,7 +119,9 @@ For the 400 K images above, generate mask.We use same method for creating fg mas
 ### Depth images
 Used the below repo and pretrained model to predict the depth of fg bg images\
 https://github.com/ialhashim/DenseDepth
-
+Since the number of images is very huge, we need increase the RAM allocation in collab to 25 gb which comes free.
+Run the prediction over batch of images , instead runnning all at once
+Keep saving the prediction output into ZIP output.Python has good api's to work with ZIP files
 
 # Repo links
 Data set creation\
