@@ -58,7 +58,7 @@ size: 1.8G (zipped)
 total images: 400K
 
 ### depth images of fg_bg
-total images: 200 K \
+total images: 400 K \
 
 ## Visualization
 
