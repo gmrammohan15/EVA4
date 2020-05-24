@@ -119,6 +119,7 @@ Tried using this loss function.It was not able to detect the edges properly.Howe
 ### Sigmoid + absolute difference
 abs_diff = torch.abs(target - pred) \
 loss = abs_diff.mean(1, True) \
+
 ### Sigmoid + BCE
 Tested with \
 crit = nn.BCEWithLogitsLoss() => Sigmoid + BCE loss \
@@ -193,10 +194,11 @@ For solving this problem we need \
 2)Seperate decoder for Depth prediction and Mask prediction which accepts features as input derived from 1 step
 
 Encoder : \
+Used standard torch based ResNet model.Tested with Resnet18
 https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/resnet_encoder.py
 
 Depth and Mask Decoder: \
-https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/resnet_encoder.py
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/densedepth_decoder.py
 
 Code: \
 
@@ -208,13 +210,7 @@ outputs = DepthMaskDecoder(features)
    
 ## Model params
 Encoder params: 11,176,512 \
-Decoder params :3152724 \
-
-## Loss function:
-For Depth prediction , SSIM(Structural similarity) loss has been used \
-However i could not find a common loss function that works for both Mask and Depth prediction \
-Therefore, i could initialize the program for only purpose at given point in time.
-
+Decoder params :3152724 
 
 ## Depth masks prediction
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/depth_pred_tensorboard.png)
@@ -222,3 +218,8 @@ Therefore, i could initialize the program for only purpose at given point in tim
 ## Depth input 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/depth_input_tensorboard.png)
 
+## Loss function:
+For Depth prediction , SSIM(Structural similarity) loss has been used \
+However i could not find a common loss function that works for both Mask and Depth prediction \
+Therefore, i could initialize the program for only purpose at given point in time.
+I further see how a common loss function can be applied.
