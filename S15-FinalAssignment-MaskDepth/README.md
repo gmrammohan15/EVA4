@@ -78,7 +78,7 @@ Sample depth images for fg bg
 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/dd_model_output_readme.png)
 
-After transformations:
+After Dataset transformations:
 
 ## Input fg bg
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/input_fg_bg_transfotmed.png)
@@ -160,6 +160,8 @@ writer.add_scalar('learning_rate', optimizer.param_groups[0]['lr'], step) \
 writer.add_scalar('Loss/test', val_score, global_step) \
 writer.add_images('masks/true', true_masks, global_step) \
 writer.add_images('masks/pred', masks_pred, global_step) \
+#### Batch processing time
+Used python time.time() to capture the time taken for batch processing.
 
 ### Viewing tensorboard on collab using ngrok
 Code: \
@@ -200,7 +202,7 @@ https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/m
 Depth and Mask Decoder: \
 https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/densedepth_decoder.py
 
-Code: \
+Code: 
 
 DepthMaskEncoder = models.ResnetEncoder(18, False) \
 DepthMaskDecoder = models.DepthDecoder(num_channels, out_channels, scale) \
@@ -222,4 +224,8 @@ Decoder params :3152724
 For Depth prediction , SSIM(Structural similarity) loss has been used \
 However i could not find a common loss function that works for both Mask and Depth prediction \
 Therefore, i could initialize the program for only purpose at given point in time.
-I further see how a common loss function can be applied.
+
+
+## Collab and github links
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/S15Final_resnetDepthMask.ipynb
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/S15Final_unet.ipynb
