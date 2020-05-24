@@ -81,28 +81,8 @@ class DenseDataSet(Dataset):
       fgbg_mask_img = cv2.resize(fgbg_mask_img, (96, 96), interpolation=cv2.INTER_LINEAR)
 
       if self.transform:
-        #bg_img = self.transform(bg_img)
-        #img_norm = cv2.cvtColor(fgbg_img, cv2.COLOR_BGR2RGB)
         fgbg_img = self.transform(fgbg_img)
         bg_img = self.transform(bg_img)
-        #fgbg_mask_img = self.transform(fgbg_mask_img)
-
-      # assert len(fg_bg_mask_path) == 1, \
-      #     f'Either no mask or multiple masks found for the ID {i}: {mask_file}'
-      # assert len(fg_bg_path) == 1, \
-      #     f'Either no image or multiple images found for the ID {i}: {img_file}'
-
-
-      # assert img.size == mask.size, \
-      #     f'Image and mask {idx} should be the same size, but are {img.size} and {mask.size}'
-
-      # bg_img = Image.open(bg_path)
-      # fgbg_img = Image.open(fg_bg_path)
-      # fgbg_mask_img = Image.open(fg_bg_mask_path)
-
-      # bg_img = self.preprocess(bg_img, self.scale)
-      # fgbg_img = self.preprocess(fgbg_img, self.scale)
-      # fgbg_mask_img = self.preprocess(fgbg_mask_img, self.scale)
 
       #return {'bg_image': bg_img, 'fgbg_image': fgbg_img,'mask': fgbg_mask_img}
       return {'fgbg_image': fgbg_img, 'bg_image': bg_img, 'mask': torch.from_numpy(fgbg_mask_img.astype(np.float32)[np.newaxis, :, :])}
