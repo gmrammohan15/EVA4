@@ -21,7 +21,7 @@ We have 400 K mask images corresponding to fgbg images
 Sample code: \
       imgs = batch['fgbg_image'] \
       bgimg = batch['bg_image'] \
-      imgs = torch.cat((imgs, bgimg), dim=1) \
+      imgs = torch.cat((imgs, bgimg), dim=1) 
 
 ### Transformations applied:
 Pytorch Color augmentation: \
@@ -43,7 +43,7 @@ code for return value from dataset class from which we will derive the loader \
 
 ### Train and validation loaders
 To validate the model built, decided will pick out only 20, 0000 images from the corpus we have \
-Using torch random split , split the train and test images \
+Using torch random split , split the train and test images.Saved the model, and loaded when new set of images were trained.
 
 Ratio: 90 % train, 10 % test \
 
