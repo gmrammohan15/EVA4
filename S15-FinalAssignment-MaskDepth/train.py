@@ -23,13 +23,11 @@ def process_batch(inputs):
     outputs = models["mask"](features)
     outputs["predictive_mask"] = outputs
 
-
-    #generate_images_pred(inputs, outputs)
     losses = compute_losses(inputs, outputs)
 
     return outputs, losses
 
-    
+
 
 def train_net(net,
               device,
@@ -75,7 +73,6 @@ def train_net(net,
             for batch in train_loader:
                 imgs = batch['fgbg_image']
                 bgimg = batch['bg_image']
-                ###
                 imgs = torch.cat((imgs, bgimg), dim=1)
               
                 true_masks = batch['mask']
