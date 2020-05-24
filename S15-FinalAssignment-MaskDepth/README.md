@@ -100,9 +100,8 @@ Since we don't need to do object detection, our loss functions can be much simpl
 
 Thought process: \
 VGG models are very heavy(~ 130 M params), so no plans to use this provided the constraints we have. \
-Tried with Resnet 18 model which has close to 12 M params, was not able to get the desired accuracy \
 
-So, decided to use UNet architecture for this purpose. \
+Deecided to play around and use UNet architecture for this purpose. \
 
 Model details:\
 Model params:17,269,121 \
@@ -184,6 +183,37 @@ Try reducing learning rate after 10th epoch by ratio of 10 % \
         for param_group in param_groups: \
             param_group['lr'] = lr \
  Within 20 epochs was getting desired results.          
+
+
+
+# Depth + Mask prediction Model
+
+For solving this problem we need \
+1)Common head to dervice features \
+2)Seperate decoder for Depth prediction and Mask prediction which accepts features as input derived from 1 step
+
+Encoder : \
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/resnet_encoder.py
+
+Depth and Mask Decoder: \
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/resnet_encoder.py
+
+Code: \
+
+DepthMaskEncoder = models.ResnetEncoder(18, False) \
+DepthMaskDecoder = models.DepthDecoder(num_channels, out_channels, scale) \
+
+features = DepthMaskEncoder(torch.cat(inputs["fgbg_image"], inputs["bg_image"]) \
+outputs = DepthMaskDecoder(features)
+   
+## Model params
+Encoder params: 11,176,512 \
+Decoder params :3152724 \
+
+## Loss function:
+For Depth prediction , SSIM(Structural similarity) loss has been used \
+However i could not find a common loss function that works for both Mask and Depth prediction \
+Therefore, i could initialize the program for only purpose at given point in time.
 
 
 ## Depth masks prediction
