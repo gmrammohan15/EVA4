@@ -9,7 +9,7 @@ https://drive.google.com/drive/folders/1WNMZTW67JD1ujh4UcVrxZHG33TkFtrBa?usp=sha
 # Approach 
 ### First targeting to solve the mask pred problem independently.
 From the problem statement, it is clear that we need encoder-decoder model.Since its not typical classification problem\
-We need to have prediction image that can be compared to ground truth mask image.So we need upsampling once we derive the features.
+We need to have prediction image that can be compared to ground truth mask image.So we need upsampling once we derive the basic features.
 
 ## Dataset 
 
@@ -66,14 +66,6 @@ Sample Scene images
 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/bg_images_readme.png)
 
-Sample fg images
-
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_transparent_readme.png)
-
-Sample fg mask images
-
-![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_mask_readme.png)
-
 Sample fg bg images
 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/fg_bg_readme.png)
@@ -85,6 +77,8 @@ Sample fg bg mask images
 Sample depth images for fg bg 
 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15A-Assignment/dd_model_output_readme.png)
+
+After transformations:
 
 ## Input fg bg
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/input_fg_bg_transfotmed.png)
@@ -187,7 +181,7 @@ Try reducing learning rate after 10th epoch by ratio of 10 % \
 
     if epoch >= 10 : \
         lr = 0.01 * 0.1 \
-        for param_group in opt.param_groups: \
+        for param_group in param_groups: \
             param_group['lr'] = lr \
  Within 20 epochs was getting desired results.          
 
