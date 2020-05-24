@@ -101,20 +101,20 @@ Since we don't need to do object detection, our loss functions can be much simpl
 Thought process: \
 VGG models are very heavy(~ 130 M params), so no plans to use this provided the constraints we have. \
 
-Deecided to play around and use UNet architecture for this purpose. \
+Decided to play around and use UNet architecture for this purpose which worked well. \
 
 Model details:\
 Model params:17,269,121 \
 Params size (MB): 65.88 \
-Estimated Total Size (MB): 301.75 \
+Estimated Total Size (MB): 301.75 
 
 https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/models/unet.py
 
 
 ## Loss function:
-### Dice Coefficient:
-The applications using UNet typically uses Dice coefficient  loss function.This would not solve our problem.\
-Tried using this loss function.It was not able to detect the edges properly.However it will cover and mask the foreground object.Edges are not taken care here \
+### Sigmoid + Dice Coefficient/IoU:
+The applications using UNet typically uses Dice coefficient loss function \
+Tried using this loss function.It was not able to detect the edges properly.However it will cover and mask the foreground object.Edges are not taken care here 
 
 ### Sigmoid + absolute difference
 abs_diff = torch.abs(target - pred) \
@@ -124,9 +124,9 @@ loss = abs_diff.mean(1, True) \
 Tested with \
 crit = nn.BCEWithLogitsLoss() => Sigmoid + BCE loss \
 
-Sigmoid as activation layer at the end followed by BCE worked well for this purpose. \
+Sigmoid as activation layer at the end followed by BCE worked well for our purpose. \
 
-Below are the results captured in tensorboard: \
+Below are the results captured in tensorboard: 
 
 ## Tensorboard ground truth for masks while training/eval
 
@@ -188,11 +188,10 @@ Try reducing learning rate after 10th epoch by ratio of 10 % \
  Within 20 epochs was getting desired results.          
 
 
-
 # Depth + Mask prediction Model
 
 For solving this problem we need \
-1)Common head to dervice features \
+1)Common head to derive features \
 2)Seperate decoder for Depth prediction and Mask prediction which accepts features as input derived from 1 step
 
 Encoder : \
@@ -212,7 +211,7 @@ outputs = DepthMaskDecoder(features)
    
 ## Model params
 Encoder params: 11,176,512 \
-Decoder params :3152724 
+Decoder params: 3152724 
 
 ## Depth masks prediction
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/depth_pred_tensorboard.png)
@@ -221,9 +220,7 @@ Decoder params :3152724
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/depth_input_tensorboard.png)
 
 ## Loss function:
-For Depth prediction , SSIM(Structural similarity) loss has been used \
-However i could not find a common loss function that works for both Mask and Depth prediction \
-Therefore, i could initialize the program for only purpose at given point in time.
+For Depth prediction , SSIM(Structural similarity) loss has been used 
 
 
 ## Collab and github links
