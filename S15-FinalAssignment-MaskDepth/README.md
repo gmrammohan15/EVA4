@@ -222,6 +222,7 @@ Decoder params: 3152724
 ## Loss functions:
 For Depth prediction , SSIM(Structural similarity) loss has been used 
 For Mask prediction, went ahead with sigmoid + BCE loss function.
+However could not find a common loss function that works well for both mask and depth.
 
 ## Collab and github links
 https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/S15Final_resnetDepthMask.ipynb
