@@ -136,7 +136,7 @@ Below are the results captured in tensorboard:
 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/pred_mask_tensorboard.png)
 
-# Debugging and working with Collab:
+# Training, debugging and working with Collab:
 While working with Collab, it very essential we save the model after every run.\
 Collab runtime disconnects quite frequently, may run into RAM/CUDA issues.To save time, \
 its essential to save the model.PyTorch provides some of the api's
@@ -187,7 +187,8 @@ Try reducing learning rate after 10th epoch by ratio of 10 % \
         for param_group in param_groups: 
             param_group['lr'] = lr 
  Within 20 epochs was getting desired results.          
-
+Refer to :
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/train.py
 
 # Depth + Mask prediction Model
 
@@ -223,7 +224,9 @@ Decoder params: 3152724
 ## Loss functions:
 For Depth prediction , SSIM(Structural similarity) loss has been used 
 For Mask prediction, went ahead with sigmoid + BCE loss function.
-However could not find a common loss function that works well for both mask and depth.
+However could not find a common loss function that works well for both mask and depth 
+Link:
+https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/loss.py
 
 ## Collab links
 https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/S15Final_resnetDepthMask.ipynb
