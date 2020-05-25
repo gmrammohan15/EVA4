@@ -219,7 +219,7 @@ Decoder params: 3152724
 ## Depth input 
 ![image](https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/datasets/images/depth_input_tensorboard.png)
 
-## Loss function:
+## Loss functions:
 For Depth prediction , SSIM(Structural similarity) loss has been used 
 For Mask prediction, went ahead with sigmoid + BCE loss function.
 
