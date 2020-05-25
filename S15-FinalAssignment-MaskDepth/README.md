@@ -9,7 +9,7 @@ https://drive.google.com/drive/folders/1WNMZTW67JD1ujh4UcVrxZHG33TkFtrBa?usp=sha
 # Approach 
 ### First targeting to solve the mask pred problem independently.
 From the problem statement, it is clear that we need encoder-decoder model.Since its not typical classification problem\
-We need to have prediction image that can be compared to ground truth mask image.So we need upsampling once we derive the basic features.
+We need to have prediction image that can be compared to ground truth mask image.So we need upsampling once we derive the \ basic features.Encoder to extract features and then to restore the original image size in the decoder so that it can classify every pixel in the original image
 
 ## Dataset 
 
@@ -221,7 +221,7 @@ Decoder params: 3152724
 
 ## Loss function:
 For Depth prediction , SSIM(Structural similarity) loss has been used 
-
+For Mask prediction, went ahead with sigmoid + BCE loss function.
 
 ## Collab and github links
 https://github.com/gmrammohan15/EVA4/blob/master/S15-FinalAssignment-MaskDepth/S15Final_resnetDepthMask.ipynb
