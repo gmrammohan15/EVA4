@@ -19,12 +19,10 @@ def compute_reprojection_loss(pred, target, ssim=False):
     return reprojection_loss
 
 def compute_losses(inputs, outputs):
-    """Compute the reprojection and smoothness losses for a minibatch
-    """
+
     losses = {}
     total_loss = 0
     loss = 0
-    #reprojection_losses = []
     target_mask = inputs["mask"]
     pred = outputs["predictive_mask"]["disp", 0]
 
@@ -75,7 +73,6 @@ def alpha_prediction_loss(y_pred, y_true):
     return torch.sum(torch.sqrt(torch.pow(diff, 2) + epsilon_sqr)) / (num_pixels + epsilon)
 
 class DiceCoeff(Function):
-    """Dice coeff for individual examples"""
 
     def forward(self, input, target):
         self.save_for_backward(input, target)
